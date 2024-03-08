@@ -20,6 +20,14 @@ public class BankAccountTest{
     }
 
     @Test
+    @DisplayName("La cantidad a retirar es negativa y salta una excepcion")
+    void Withdraw_AmountNegative_ThrowError(){
+        int amount = -10;
+
+        assertThrows(IllegalArgumentException.class,()-> bankAccount.withdraw(amount));
+    }
+
+    @Test
     @DisplayName("Le introduzco un deposito y puedo retirar dinero")
     void Withdraw_WithEnoughDeposit_ReturnTrue(){
         int balance = 50;
@@ -45,6 +53,16 @@ public class BankAccountTest{
         assertEquals(expectedValue, returnValue);
     }
 
+    @Test
+    @DisplayName("Pago con algun parametro negativo lanza una excepcion")
+    void Payment_NegativeParameter_ThrowError(){
+        double totalAmount = 500;
+        double interest = 1;
+        int npayments = -2;
+        
+        assertThrows(IllegalArgumentException.class, ()->bankAccount.payment(totalAmount, interest, npayments));
+    }
+
     @Test 
     @DisplayName("Pago para un mes")
     void Payment_ForOneMonth_Return2000(){
@@ -53,6 +71,17 @@ public class BankAccountTest{
         int npayments = 500;
         double res = 2000;
         assertEquals(res, bankAccount.payment(totalAmount, interest, npayments));
+    }
+
+    @Test
+    @DisplayName("Cantidad pendiente con algun parametro negativo lanza una excepcion")
+    void AmountPending_NegativeParamenter_ThrowError(){
+        double amount = -700;
+        int month = 5;
+        int pinterest = 1;
+        int npayments = -3;
+
+        assertThrows(IllegalArgumentException.class, ()->bankAccount.pending(amount, pinterest, npayments, month));
     }
 
     @Test 
