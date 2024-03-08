@@ -5,8 +5,12 @@ public class BankAccount {
     public BankAccount(int startingBalance) {
         this.balance = startingBalance;
     }
+
+    //he modificado el codigo para que controle si la cantidad es negativa
     public boolean withdraw(int amount) {
-        if(balance >= amount) {
+        if(amount<0){
+            throw new IllegalArgumentException("Amount cannot be negative");
+        }else if(balance >= amount) {
             balance -= amount;
             return true;
         }
@@ -24,11 +28,20 @@ public class BankAccount {
 
     // Calculate the payment per month for a loan
     public double payment(double total_amount, double interest, int npayments){
+        //he modificado para controlar los parametros negativos
+        if(total_amount<0 || interest<0 || npayments<0){
+            throw new IllegalArgumentException("Negative parameter");
+        }
         return total_amount*(interest*Math.pow((1+interest), npayments)/(Math.pow((1+interest), npayments)-1));
     }
 
     // Calculate the pending amount for a loan in a month
     public double pending (double amount, double inte, int npayments, int month){
+        //he modificado para controlar los parametros negativos
+        if(amount<0 || inte <0 || npayments <0 || month <0){
+            throw new IllegalArgumentException("Negative parameter");
+        }
+
         double res;
         if(month==0){
             res=amount;
